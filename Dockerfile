@@ -1,8 +1,7 @@
-# Use a base image that already has some common Python and Node.js tools
-FROM python:3.10-slim-buster
+# Use a base image that has Python 3.10 and is based on Debian Bullseye
+FROM python:3.10-slim-bullseye
 
 # Install necessary Playwright system dependencies as root
-# These are the libraries that were listed as missing by Playwright
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         libgtk-4-0 \
@@ -30,12 +29,10 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Install Playwright browsers (Chromium for your script)
-# Since system dependencies are installed, this should just download the browser binaries
 RUN playwright install chromium
 
 # Copy the rest of your application code
 COPY . .
 
 # Set the entrypoint for your cron job.
-# This will be the command Render executes.
 CMD ["python", "main.py"]
