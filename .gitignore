@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+service_account.json
+swiggy_login.json
+.DS_Store
+Thumbs.db
+*.log
